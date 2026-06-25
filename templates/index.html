@@ -1,0 +1,54 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Aetheris</title>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    html, body {
+      width: 100vw;
+      height: 100vh;
+      overflow: hidden;
+      background: #050505;
+    }
+
+    #face {
+      width: 100vw;
+      height: 100vh;
+    }
+  </style>
+</head>
+<body>
+
+  <div id="face"></div>
+
+  <script src="/static/aetheris-face.js"></script>
+  <script>
+    const expressions = [
+      'neutral', 'happy', 'sad', 'angry', 'curious',
+      'searching', 'surprised', 'talking', 'sleeping'
+    ];
+
+    let current = 0;
+
+    const face = new AetherisFace('#face', {
+      expression: expressions[current],
+      autoBehavior: true,
+      autoBlink: true,
+      themedBackground: true
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'ArrowRight') {
+        current = (current + 1) % expressions.length;
+        face.setExpression(expressions[current]);
+      } else if (e.key === 'ArrowLeft') {
+        current = (current - 1 + expressions.length) % expressions.length;
+        face.setExpression(expressions[current]);
+      }
+    });
+  </script>
+</body>
+</html>
